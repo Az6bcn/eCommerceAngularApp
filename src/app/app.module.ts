@@ -7,6 +7,11 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { BsDropdownModule } from 'ngx-bootstrap';
 import { Router, RouterModule } from '@angular/router';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from 'src/environments/environment';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+
 
 
 @NgModule({
@@ -21,7 +26,11 @@ import { Router, RouterModule } from '@angular/router';
     BsDropdownModule.forRoot(),
     RouterModule.forRoot([
       {path: 'shopping-cart', component: ShoppingCartComponent},
-    ])
+    ]),
+    AngularFireModule.initializeApp(environment.firebase, 'eCommerAppAngular'),
+    AngularFirestoreModule, // imports firebase/firestore, only needed for database features
+    AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
+
   ],
   providers: [],
   bootstrap: [AppComponent]
