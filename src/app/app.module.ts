@@ -1,3 +1,4 @@
+import { LoginComponent } from './login/login.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Component } from '@angular/core';
 
@@ -11,6 +12,13 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { HomeComponent } from './home/home.component';
+import { ProductsListComponent } from './products-list/products-list.component';
+import { CheckOutComponent } from './check-out/check-out.component';
+import { OrderSuccessComponent } from './order-success/order-success.component';
+import { MyOrdersComponent } from './my-orders/my-orders.component';
+import { AdminProductsListComponent } from './admin/admin-products-list/admin-products-list.component';
+import { AdminOrdersListComponent } from './admin/admin-orders-list/admin-orders-list.component';
 
 
 
@@ -18,14 +26,31 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
   declarations: [
     AppComponent,
     ShoppingCartComponent,
-    NavBarComponent
+    NavBarComponent,
+    HomeComponent,
+    ProductsListComponent,
+    CheckOutComponent,
+    OrderSuccessComponent,
+    MyOrdersComponent,
+    AdminProductsListComponent,
+    AdminOrdersListComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BsDropdownModule.forRoot(),
     RouterModule.forRoot([
+      {path: '', component: HomeComponent},
+      {path: 'products', component: ProductsListComponent},
       {path: 'shopping-cart', component: ShoppingCartComponent},
+      {path: 'my-orders', component: MyOrdersComponent},
+      {path: 'check-out', component: CheckOutComponent},
+      {path: 'order-success', component: OrderSuccessComponent},
+      {path: 'login', component: LoginComponent},
+      {path: 'admin/products', component: AdminProductsListComponent},
+      {path: 'admin/orders', component: AdminOrdersListComponent},
+      {path: '**', component: HomeComponent}
     ]),
     AngularFireModule.initializeApp(environment.firebase, 'eCommerAppAngular'),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
