@@ -1,3 +1,6 @@
+import { AdminGuard } from './../Guards/admin-guard.service';
+import { AuthGuard } from './../Guards/auth-guard.service';
+import { AuthService } from './Services/auth-service.service';
 import { LoginComponent } from './login/login.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Component } from '@angular/core';
@@ -19,7 +22,8 @@ import { OrderSuccessComponent } from './order-success/order-success.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { AdminProductsListComponent } from './admin/admin-products-list/admin-products-list.component';
 import { AdminOrdersListComponent } from './admin/admin-orders-list/admin-orders-list.component';
-
+import { UserService } from './Services/user-service.service';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 
 
 @NgModule({
@@ -42,22 +46,23 @@ import { AdminOrdersListComponent } from './admin/admin-orders-list/admin-orders
     BsDropdownModule.forRoot(),
     RouterModule.forRoot([
       {path: '', component: HomeComponent},
-      {path: 'products', component: ProductsListComponent},
+      {path: 'products', component: ProductsListComponent, canActivate: [AuthGuard, AdminGuard]},
       {path: 'shopping-cart', component: ShoppingCartComponent},
-      {path: 'my-orders', component: MyOrdersComponent},
-      {path: 'check-out', component: CheckOutComponent},
-      {path: 'order-success', component: OrderSuccessComponent},
+      {path: 'my-orders', component: MyOrdersComponent, canActivate: [AuthGuard, AdminGuard]},
+      {path: 'check-out', component: CheckOutComponent, canActivate: [AuthGuard, AdminGuard]},
+      {path: 'order-success', component: OrderSuccessComponent, canActivate: [AuthGuard, AdminGuard]},
       {path: 'login', component: LoginComponent},
-      {path: 'admin/products', component: AdminProductsListComponent},
-      {path: 'admin/orders', component: AdminOrdersListComponent},
+      {path: 'admin/products', component: AdminProductsListComponent, canActivate: [AuthGuard, AdminGuard]},
+      {path: 'admin/orders', component: AdminOrdersListComponent, canActivate: [AuthGuard, AdminGuard]},
       {path: '**', component: HomeComponent}
     ]),
     AngularFireModule.initializeApp(environment.firebase, 'eCommerAppAngular'),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
+    AngularFireDatabaseModule
 
   ],
-  providers: [],
+  providers: [AuthService, UserService, AuthGuard, AdminGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
