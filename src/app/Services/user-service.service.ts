@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, ReplaySubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +8,8 @@ export class UserService {
 
   private User = new BehaviorSubject<string>(null);
   private isAdmin = new BehaviorSubject<boolean>(false);
+  // private isAdmin = new ReplaySubject();
+  // private User = new ReplaySubject();
   currentUser = this.User.asObservable();
   isCurrentUserAdmin = this.isAdmin.asObservable();
 
@@ -29,7 +31,6 @@ export class UserService {
    * @param isAdmin => currently logged Admin?
    */
   changeAdminRole(isAdmin: boolean) {
-    console.log('zzzzzzzzzzzzzz', isAdmin);
     // change the BehaviourSubject value
     this.isAdmin.next(isAdmin);
   }

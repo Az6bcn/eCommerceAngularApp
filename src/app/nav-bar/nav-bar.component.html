@@ -2,24 +2,25 @@
   <a [routerLink]="['/shopping-cart']" routerLinkActive="active"  class="navbar-brand" >Shopping Cart</a>
 
   <div class="btn-group" dropdown>
-    <div *ngIf='!(isLoggedIn$ | async)'>
+    <div *ngIf='!(authService.user$ | async )'>
             <a class="btn btn-primary " [routerLink]="['/login']" >Log In</a><span class="caret"></span>
     </div>
 
-    <div *ngIf='(isLoggedIn$ | async)'>
+    <div *ngIf='authService.user$ | async as user'>
     <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
             aria-controls="dropdown-basic">
-{{ currentLoggedInUser$ | async }} <span class="caret"></span>
+            {{ user.displayName }} <span class="caret"></span>
     </button>
 
     <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
         role="menu" aria-labelledby="button-basic">
-      <li role="menuitem"><a [routerLink]="['/my-orders']" routerLinkActive="router-link-active"  class="dropdown-item" href="#">My Orders</a></li>
-      <li role="menuitem"><a class="dropdown-item" [routerLink]="['/admin/orders']" >Manage Orders</a></li>
-      <li role="menuitem"><a class="dropdown-item" [routerLink]="['/admin/products']" >Manage Products</a></li>
-      <li role="menuitem"><a class="dropdown-item" [routerLink]="['/login']" (click)='loggedOut()'>Log Out</a>
+      <li role="menuitem"><a [routerLink]="['/my-orders']" routerLinkActive="router-link-active"  class="dropdown-item" >My Orders</a></li>
+      <li role="menuitem"><a class="dropdown-item" [routerLink]="['/admin/orders']" *ngIf='this.getRole'>Manage Orders</a></li>
+      <li role="menuitem"><a class="dropdown-item" [routerLink]="['/admin/products']" *ngIf='this.getRole' >Manage Products</a></li>
+      <li role="menuitem"><a class="dropdown-item" [routerLink]="['/login']" (click)='logOut()'>Log Out</a>
       </li>
     </ul>
   </div>
   </div>
 </nav>
+

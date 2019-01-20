@@ -46,14 +46,17 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
     BsDropdownModule.forRoot(),
     RouterModule.forRoot([
       {path: '', component: HomeComponent},
-      {path: 'products', component: ProductsListComponent, canActivate: [AuthGuard, AdminGuard]},
+      {path: 'products', component: ProductsListComponent},
       {path: 'shopping-cart', component: ShoppingCartComponent},
+      {path: 'login', component: LoginComponent},
+
       {path: 'my-orders', component: MyOrdersComponent, canActivate: [AuthGuard, AdminGuard]},
       {path: 'check-out', component: CheckOutComponent, canActivate: [AuthGuard, AdminGuard]},
       {path: 'order-success', component: OrderSuccessComponent, canActivate: [AuthGuard, AdminGuard]},
-      {path: 'login', component: LoginComponent},
+
       {path: 'admin/products', component: AdminProductsListComponent, canActivate: [AuthGuard, AdminGuard]},
       {path: 'admin/orders', component: AdminOrdersListComponent, canActivate: [AuthGuard, AdminGuard]},
+
       {path: '**', component: HomeComponent}
     ]),
     AngularFireModule.initializeApp(environment.firebase, 'eCommerAppAngular'),
