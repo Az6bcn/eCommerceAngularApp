@@ -44,3 +44,13 @@ testem.log
 Thumbs.db
 
 src/environments/
+
+firebase\.json
+
+database\.rules\.json
+
+\.firebaserc
+
+\.firebase/hosting\.ZGlzdC9lQ29tbWVyY2VBcHA\.cache
+
+\.firebase/hosting\.ZGlzdA\.cache

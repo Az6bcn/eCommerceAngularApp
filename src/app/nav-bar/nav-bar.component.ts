@@ -13,7 +13,7 @@ import { switchMap, map } from 'rxjs/operators';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit {
-  constructor(private authService: AuthService, private cdr: ChangeDetectorRef) { }
+  constructor(public authService: AuthService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
   }
