@@ -1,0 +1,71 @@
+<div class="container">
+  <div class=" col-sm-6">
+    <form class='card' [formGroup]='newProductForm'>
+
+      <div formGroupName='newProductGroup'>
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input formControlName='Title' type="text" class="form-control" id="title" aria-describedby="emailHelp"
+            placeholder="Enter title">
+            <!-- if touched and invalid -->
+            <div *ngIf='title.touched && title.invalid' class="alert alert-danger" role="alert">
+              <!-- show the validation errors set on the control -->
+              <div *ngIf='title.errors.required'>
+                  Please enter a title
+              </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+          <label for="price">Price</label>
+          <input formControlName='Price' type="number" class="form-control" id="price" placeholder="Price">
+            <!-- if touched and invalid -->
+            <div *ngIf='price.touched && price.invalid' class="alert alert-danger" role="alert">
+                <!-- show the validation errors set on the control -->
+                <div *ngIf='price.errors.required'>
+                    Please enter a price for this product
+                </div>
+              </div>
+        </div>
+
+        <div class="form-group">
+          <label for="imageurl">Select Category</label>
+          <ng-select formControlName="Category" [allowClear]="true" [options]="">
+          </ng-select>
+          <!-- if touched and invalid -->
+          <div *ngIf='category.touched && category.invalid' class="alert alert-danger" role="alert">
+              <!-- show the validation errors set on the control -->
+              <div *ngIf='category.errors.required'>
+                  Please select a product category.
+              </div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+          <label for="imageurl">Image URL</label>
+          <input formControlName='ImageURL' type="text" class="form-control" id="imageurl" placeholder="Image URL">
+            <!-- if touched and invalid -->
+            <div *ngIf='imageUrl.touched && title.invalid' class="alert alert-danger" role="alert">
+                <!-- show the validation errors set on the control -->
+                <div *ngIf='imageUrl.errors.required'>
+                    Please enter a valid image url.
+                </div>
+              </div>
+        </div>
+
+
+        <div>
+          <button type="button" class="btn btn-success btn-spacing" [disabled]='IsValid()'>Save</button>
+
+          <button type="button" class="btn btn-secondary" (click)='Cancelled()'>Cancel</button>
+
+        </div>
+      </div>
+
+    </form>
+
+
+  </div>
+
+</div>

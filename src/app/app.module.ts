@@ -24,6 +24,10 @@ import { AdminProductsListComponent } from './admin/admin-products-list/admin-pr
 import { AdminOrdersListComponent } from './admin/admin-orders-list/admin-orders-list.component';
 import { UserService } from './Services/user-service.service';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AdminNewProductFormComponent } from './admin-new-product-form/admin-new-product-form.component';
+import {SelectModule} from 'ng-select';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 
 @NgModule({
@@ -38,7 +42,8 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
     MyOrdersComponent,
     AdminProductsListComponent,
     AdminOrdersListComponent,
-    LoginComponent
+    LoginComponent,
+    AdminNewProductFormComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +58,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
       {path: 'my-orders', component: MyOrdersComponent, canActivate: [AuthGuard, AdminGuard]},
       {path: 'check-out', component: CheckOutComponent, canActivate: [AuthGuard, AdminGuard]},
       {path: 'order-success', component: OrderSuccessComponent, canActivate: [AuthGuard, AdminGuard]},
-
+      {path: 'admin/products/new', component: AdminNewProductFormComponent, canActivate: [AuthGuard, AdminGuard]},
       {path: 'admin/products', component: AdminProductsListComponent, canActivate: [AuthGuard, AdminGuard]},
       {path: 'admin/orders', component: AdminOrdersListComponent, canActivate: [AuthGuard, AdminGuard]},
 
@@ -62,7 +67,9 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
     AngularFireModule.initializeApp(environment.firebase, 'eCommerAppAngular'),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    ReactiveFormsModule,
+    SelectModule
 
   ],
   providers: [AuthService, UserService, AuthGuard, AdminGuard],
