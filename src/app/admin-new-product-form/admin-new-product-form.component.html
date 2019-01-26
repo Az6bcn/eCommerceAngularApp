@@ -1,31 +1,30 @@
-<div class="container">
-  <div class=" col-sm-6">
-    <form class='card' [formGroup]='newProductForm'>
-
+<form class='card' [formGroup]='newProductForm' class='formPadding'>
+  <div class="row">
+    <div class=" col-sm-6">
       <div formGroupName='newProductGroup'>
         <div class="form-group">
           <label for="title">Title</label>
           <input formControlName='Title' type="text" class="form-control" id="title" aria-describedby="emailHelp"
             placeholder="Enter title">
-            <!-- if touched and invalid -->
-            <div *ngIf='title.touched && title.invalid' class="alert alert-danger" role="alert">
-              <!-- show the validation errors set on the control -->
-              <div *ngIf='title.errors.required'>
-                  Please enter a title
-              </div>
+          <!-- if touched and invalid -->
+          <div *ngIf='title.touched && title.invalid' class="alert alert-danger" role="alert">
+            <!-- show the validation errors set on the control -->
+            <div *ngIf='title.errors.required'>
+              Please enter a title
             </div>
+          </div>
         </div>
 
         <div class="form-group">
           <label for="price">Price</label>
           <input formControlName='Price' type="number" class="form-control" id="price" placeholder="Price">
-            <!-- if touched and invalid -->
-            <div *ngIf='price.touched && price.invalid' class="alert alert-danger" role="alert">
-                <!-- show the validation errors set on the control -->
-                <div *ngIf='price.errors.required'>
-                    Please enter a price for this product
-                </div>
-              </div>
+          <!-- if touched and invalid -->
+          <div *ngIf='price.touched && price.invalid' class="alert alert-danger" role="alert">
+            <!-- show the validation errors set on the control -->
+            <div *ngIf='price.errors.required'>
+              Please enter a price for this product
+            </div>
+          </div>
         </div>
 
         <div class="form-group">
@@ -34,24 +33,24 @@
           </ng-select>
           <!-- if touched and invalid -->
           <div *ngIf='category.touched && category.invalid' class="alert alert-danger" role="alert">
-              <!-- show the validation errors set on the control -->
-              <div *ngIf='category.errors.required'>
-                  Please select a product category.
-              </div>
+            <!-- show the validation errors set on the control -->
+            <div *ngIf='category.errors.required'>
+              Please select a product category.
             </div>
+          </div>
         </div>
 
 
         <div class="form-group">
           <label for="imageurl">Image URL</label>
           <input formControlName='ImageURL' type="text" class="form-control" id="imageurl" placeholder="Image URL">
-            <!-- if touched and invalid -->
-            <div *ngIf='imageUrl.touched && title.invalid' class="alert alert-danger" role="alert">
-                <!-- show the validation errors set on the control -->
-                <div *ngIf='imageUrl.errors.required'>
-                    Please enter a valid image url.
-                </div>
-              </div>
+          <!-- if touched and invalid -->
+          <div *ngIf='imageUrl.touched && title.invalid' class="alert alert-danger" role="alert">
+            <!-- show the validation errors set on the control -->
+            <div *ngIf='imageUrl.errors.required'>
+              Please enter a valid image url.
+            </div>
+          </div>
         </div>
 
 
@@ -62,10 +61,17 @@
 
         </div>
       </div>
+    </div>
 
-    </form>
-
-
+    <div class=" col-sm-6">
+      <div class="card" style="width: 25rem; height: 20rem;">
+        <img class="card-img-top" src="https://www.pexels.com/photo/body-of-water-286588" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+            content.</p>
+        </div>
+      </div>
+    </div>
   </div>
-
-</div>
+</form>
