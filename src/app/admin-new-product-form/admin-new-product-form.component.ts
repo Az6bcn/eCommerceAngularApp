@@ -64,7 +64,7 @@ export class AdminNewProductFormComponent implements OnInit {
   Save(product: Product) {
     this.productService.CreateProduct(product);
     alert('New product created Succesfully');
-    this.router.navigate(['/dmin/products'], {relativeTo: this.activatedRoute});
+    this.router.navigate(['/admin/products'], {relativeTo: this.activatedRoute});
   }
 
 

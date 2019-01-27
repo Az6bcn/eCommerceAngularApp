@@ -6,3 +6,7 @@
   <!-- <label for="searchproduct">Search Product</label> -->
   <input type="text" class="form-control" id="searchproduct"  placeholder="Search Product">
 </div>
+
+<div *ngIf="Products && Products.length > 0">
+<app-data-table-list [DataList]='Products' ></app-data-table-list>
+</div>
