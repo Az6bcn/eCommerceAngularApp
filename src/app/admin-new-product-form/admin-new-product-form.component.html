@@ -12,6 +12,9 @@
             <div *ngIf='title.errors.required'>
               Please enter a title
             </div>
+            <div *ngIf='title.errors.maxlength'>
+              Exceeded the max length for the title(15)
+            </div>
           </div>
         </div>
 
@@ -45,7 +48,7 @@
           <label for="imageurl">Image URL</label>
           <input formControlName='ImageURL' type="text" class="form-control" id="imageurl" placeholder="Image URL">
           <!-- if touched and invalid -->
-          <div *ngIf='imageUrl.touched && title.invalid' class="alert alert-danger" role="alert">
+          <div *ngIf='imageUrl.touched && imageUrl.invalid' class="alert alert-danger" role="alert">
             <!-- show the validation errors set on the control -->
             <div *ngIf='imageUrl.errors.required'>
               Please enter a valid image url.
@@ -55,7 +58,7 @@
 
 
         <div>
-          <button type="button" class="btn btn-success btn-spacing" [disabled]='IsValid()'>Save</button>
+          <button type="button" class="btn btn-success btn-spacing" [disabled]='IsValid()' (click)='Save(newProductForm.get("newProductGroup").value)'>Save</button>
 
           <button type="button" class="btn btn-secondary" (click)='Cancelled()'>Cancel</button>
 
@@ -64,14 +67,14 @@
     </div>
 
     <div class=" col-sm-6">
-      <div class="card" style="width: 25rem; height: 20rem;">
-        <img class="card-img-top" src="https://www.pexels.com/photo/body-of-water-286588" alt="Card image cap">
+      <div class="card" style="width: 20rem; height: 20rem;">
+        <img class="card-img-top" [src]='imageUrl.value'>
         <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-            content.</p>
+          <h2 class="card-title">{{title.value}}</h2>
+          <p class="card-text">{{price.value}}</p>
         </div>
       </div>
     </div>
   </div>
 </form>
+<!-- https://drive.google.com/thumbnail?id=1xEC5mD-otxwr39ft9CuZPwASUcx4vS_O -->
