@@ -1,3 +1,4 @@
+import { CategoryService } from './Services/category.service';
 import { AdminGuard } from './../Guards/admin-guard.service';
 import { AuthGuard } from './../Guards/auth-guard.service';
 import { AuthService } from './Services/auth-service.service';
@@ -72,7 +73,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     SelectModule
 
   ],
-  providers: [AuthService, UserService, AuthGuard, AdminGuard],
+  providers: [AuthService, UserService, AuthGuard, AdminGuard, CategoryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

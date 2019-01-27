@@ -1,6 +1,9 @@
+import { Category } from './../Models/category';
+import { CategoryService } from './../Services/category.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup, FormControl, AbstractControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-admin-new-product-form',
@@ -10,16 +13,24 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class AdminNewProductFormComponent implements OnInit {
 
   newProductForm: FormGroup;
-
+  categories: Array<Category>;
 
   constructor(
     private readonly fb: FormBuilder,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private categoryService: CategoryService
     ) { }
 
   ngOnInit() {
     this.loadForm();
+
+    this.categoryService.GetCategories()
+      .subscribe( resp => {
+        this.categories = resp.map( x => new Category(x.payload.val().name, x.payload.key));
+      });
+
+
   }
 
   private loadForm(): void {

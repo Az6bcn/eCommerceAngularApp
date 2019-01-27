@@ -29,7 +29,7 @@
 
         <div class="form-group">
           <label for="imageurl">Select Category</label>
-          <ng-select formControlName="Category" [allowClear]="true" [options]="">
+          <ng-select formControlName="Category" [allowClear]="true" [options]="categories">
           </ng-select>
           <!-- if touched and invalid -->
           <div *ngIf='category.touched && category.invalid' class="alert alert-danger" role="alert">
