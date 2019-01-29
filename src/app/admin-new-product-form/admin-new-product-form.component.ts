@@ -16,25 +16,41 @@ export class AdminNewProductFormComponent implements OnInit {
 
   newProductForm: FormGroup;
   categories: Array<Category>;
+  productID: string;
 
   constructor(
     private readonly fb: FormBuilder,
     private router: Router,
-    private activatedRoute: ActivatedRoute,
+    public activatedRoute: ActivatedRoute,
     private categoryService: CategoryService,
-    private productService: ProductService
+    public productService: ProductService
 
     ) { }
 
   ngOnInit() {
-    this.loadForm();
 
     this.categoryService.GetCategories()
       .subscribe( resp => {
-        this.categories = resp.map( x => new Category(x.payload.val().name, x.payload.key));
+        this.categories = resp.map( x => new Category(x.payload.val()['name'], x.payload.key));
       });
 
+      this.productID =  this.activatedRoute.snapshot.paramMap.get('id');
 
+      if (this.productID && this.productID.length > 0) {
+        this.loadForm();
+        this.productService.GetProduct(this.productID)
+        .subscribe((response: Product) => {
+          // populate the form with data of product to edit
+          this.newProductForm.get('newProductGroup').setValue({
+            title: response.title,
+            price: response.price,
+            category: response.category,
+            imageURL: response.imageUrl
+          });
+        });
+      }
+
+      this.loadForm();
   }
 
   private loadForm(): void {
@@ -46,10 +62,10 @@ export class AdminNewProductFormComponent implements OnInit {
   static getNewProductForm(fb: FormBuilder): FormGroup {
     return fb.group({
       newProductGroup: fb.group ({
-        Title: ['', [Validators.required, Validators.maxLength(15)]],
-        Price: ['', [Validators.required]],
-        Category: ['', [Validators.required]],
-        ImageURL: ['', [Validators.required]]
+        title: ['', [Validators.required, Validators.maxLength(15)]],
+        price: ['', [Validators.required]],
+        category: ['', [Validators.required]],
+        imageURL: ['', [Validators.required]]
           })
    });
   }
@@ -58,30 +74,38 @@ export class AdminNewProductFormComponent implements OnInit {
     return this.newProductForm.invalid;
   }
   Cancelled(): void {
-    this.router.navigate(['../'], {relativeTo: this.activatedRoute});
+    this.router.navigate(['../../products'], {relativeTo: this.activatedRoute});
   }
 
   Save(product: Product) {
-    this.productService.CreateProduct(product);
-    alert('New product created Succesfully');
+    if (this.productID && this.productID.length > 0 ) {
+        //edit:
+        this.productService.editProduct(product, this.productID);
+        alert('Product updated Succesfully');
+    }
+    else {
+      this.productService.CreateProduct(product);
+      alert('New product created Succesfully');
+    }
+
     this.router.navigate(['/admin/products'], {relativeTo: this.activatedRoute});
   }
 
 
-  get title() {
-    return this.newProductForm.get('newProductGroup.Title');
+  get _title() {
+    return this.newProductForm.get('newProductGroup.title');
   }
 
-  get price() {
-    return this.newProductForm.get('newProductGroup.Price');
+  get _price() {
+    return this.newProductForm.get('newProductGroup.price');
   }
 
-  get category() {
-    return this.newProductForm.get('newProductGroup.Category');
+  get _category() {
+    return this.newProductForm.get('newProductGroup.category');
   }
 
 
-  get imageUrl() {
-    return this.newProductForm.controls['newProductGroup'].get('ImageURL');
+  get _imageUrl() {
+    return this.newProductForm.controls['newProductGroup'].get('imageURL');
   }
 }

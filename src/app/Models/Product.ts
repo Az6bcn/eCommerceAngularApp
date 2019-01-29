@@ -1,6 +1,6 @@
 export class Product {
-  Title: string;
-  Price: String;
-  Category: String;
-  ImageUrl: string;
+  title: string;
+  price: String;
+  category: String;
+  imageUrl: string;
 }

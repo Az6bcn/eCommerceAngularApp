@@ -9,10 +9,12 @@ import { Observable } from 'rxjs';
 })
 export class ProductService {
   private itemRef: AngularFireList<any>;
+
   private item: Observable<any>;
   constructor(private db: AngularFireDatabase) {
     this.itemRef = db.list('/Products');
     this.item = this.itemRef.snapshotChanges();
+
 
   }
 
@@ -20,7 +22,14 @@ export class ProductService {
     return this.itemRef.push(product);
   }
 
+  editProduct(product: Product, key: string) {
+    return this.db.object(`/Products/${key}`).update(product);
+  }
   GetProducts() {
     return this.item;
+  }
+
+  GetProduct(id: string) {
+    return this.db.object(`/Products/${id}`).valueChanges();
   }
 }

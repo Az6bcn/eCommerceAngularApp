@@ -4,15 +4,15 @@
       <div formGroupName='newProductGroup'>
         <div class="form-group">
           <label for="title">Title</label>
-          <input formControlName='Title' type="text" class="form-control" id="title" aria-describedby="emailHelp"
+          <input formControlName='title' type="text" class="form-control" id="title" aria-describedby="emailHelp"
             placeholder="Enter title">
           <!-- if touched and invalid -->
-          <div *ngIf='title.touched && title.invalid' class="alert alert-danger" role="alert">
+          <div *ngIf='_title.touched && _title.invalid' class="alert alert-danger" role="alert">
             <!-- show the validation errors set on the control -->
-            <div *ngIf='title.errors.required'>
+            <div *ngIf='_title.errors.required'>
               Please enter a title
             </div>
-            <div *ngIf='title.errors.maxlength'>
+            <div *ngIf='_title.errors.maxlength'>
               Exceeded the max length for the title(15)
             </div>
           </div>
@@ -20,11 +20,11 @@
 
         <div class="form-group">
           <label for="price">Price</label>
-          <input formControlName='Price' type="number" class="form-control" id="price" placeholder="Price">
+          <input formControlName='price' type="number" class="form-control" id="price" placeholder="Price">
           <!-- if touched and invalid -->
-          <div *ngIf='price.touched && price.invalid' class="alert alert-danger" role="alert">
+          <div *ngIf='_price.touched && _price.invalid' class="alert alert-danger" role="alert">
             <!-- show the validation errors set on the control -->
-            <div *ngIf='price.errors.required'>
+            <div *ngIf='_price.errors.required'>
               Please enter a price for this product
             </div>
           </div>
@@ -32,12 +32,12 @@
 
         <div class="form-group">
           <label for="imageurl">Select Category</label>
-          <ng-select formControlName="Category" [allowClear]="true" [options]="categories">
+          <ng-select formControlName="category" [allowClear]="true" [options]="categories">
           </ng-select>
           <!-- if touched and invalid -->
-          <div *ngIf='category.touched && category.invalid' class="alert alert-danger" role="alert">
+          <div *ngIf='_category.touched && _category.invalid' class="alert alert-danger" role="alert">
             <!-- show the validation errors set on the control -->
-            <div *ngIf='category.errors.required'>
+            <div *ngIf='_category.errors.required'>
               Please select a product category.
             </div>
           </div>
@@ -46,11 +46,11 @@
 
         <div class="form-group">
           <label for="imageurl">Image URL</label>
-          <input formControlName='ImageURL' type="text" class="form-control" id="imageurl" placeholder="Image URL">
+          <input formControlName='imageURL' type="text" class="form-control" id="imageurl" placeholder="Image URL">
           <!-- if touched and invalid -->
-          <div *ngIf='imageUrl.touched && imageUrl.invalid' class="alert alert-danger" role="alert">
+          <div *ngIf='_imageUrl.touched && _imageUrl.invalid' class="alert alert-danger" role="alert">
             <!-- show the validation errors set on the control -->
-            <div *ngIf='imageUrl.errors.required'>
+            <div *ngIf='_imageUrl.errors.required'>
               Please enter a valid image url.
             </div>
           </div>
@@ -68,10 +68,10 @@
 
     <div class=" col-sm-6">
       <div class="card" style="width: 20rem; height: 20rem;">
-        <img class="card-img-top" [src]='imageUrl.value'>
+        <img class="card-img-top" [src]='_imageUrl.value'>
         <div class="card-body">
-          <h2 class="card-title">{{title.value}}</h2>
-          <p class="card-text">{{price.value}}</p>
+          <h2 class="card-title">{{_title.value}}</h2>
+          <p class="card-text">{{_price.value}}</p>
         </div>
       </div>
     </div>

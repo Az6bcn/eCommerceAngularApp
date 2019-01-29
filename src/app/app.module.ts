@@ -29,6 +29,7 @@ import { SelectModule } from 'ng-select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DataTableListComponent } from './Tables/data-table/data-table-list.component';
 import { DataTableModule } from 'angular-6-datatable';
+import { AdminEditProductComponent } from './admin-edit-product/admin-edit-product.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { DataTableModule } from 'angular-6-datatable';
     AdminOrdersListComponent,
     LoginComponent,
     AdminNewProductFormComponent,
-    DataTableListComponent
+    DataTableListComponent,
+    AdminEditProductComponent
   ],
   imports: [
     BrowserModule,
@@ -69,6 +71,11 @@ import { DataTableModule } from 'angular-6-datatable';
       {
         path: 'order-success',
         component: OrderSuccessComponent,
+        canActivate: [AuthGuard, AdminGuard]
+      },
+      {
+        path: 'admin/products-edit/:id',
+        component: AdminNewProductFormComponent,
         canActivate: [AuthGuard, AdminGuard]
       },
       {

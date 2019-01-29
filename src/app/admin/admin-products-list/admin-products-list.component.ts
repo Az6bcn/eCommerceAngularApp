@@ -27,4 +27,5 @@ Products: Array<Product>;
     this.router.navigate(['./new'], {relativeTo: this.activatedRoute});
   }
 
+
 }
