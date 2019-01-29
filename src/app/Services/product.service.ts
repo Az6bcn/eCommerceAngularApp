@@ -25,6 +25,10 @@ export class ProductService {
   editProduct(product: Product, key: string) {
     return this.db.object(`/Products/${key}`).update(product);
   }
+
+  deleteProduct(key: string) {
+    return this.db.object(`/Products/${key}`).remove();
+  }
   GetProducts() {
     return this.item;
   }

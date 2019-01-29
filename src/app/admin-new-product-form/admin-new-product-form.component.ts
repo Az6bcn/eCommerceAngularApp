@@ -40,12 +40,13 @@ export class AdminNewProductFormComponent implements OnInit {
         this.loadForm();
         this.productService.GetProduct(this.productID)
         .subscribe((response: Product) => {
+          console.log(response);
           // populate the form with data of product to edit
           this.newProductForm.get('newProductGroup').setValue({
             title: response.title,
             price: response.price,
             category: response.category,
-            imageURL: response.imageUrl
+            imageUrl: response.imageUrl
           });
         });
       }
@@ -65,7 +66,7 @@ export class AdminNewProductFormComponent implements OnInit {
         title: ['', [Validators.required, Validators.maxLength(15)]],
         price: ['', [Validators.required]],
         category: ['', [Validators.required]],
-        imageURL: ['', [Validators.required]]
+        imageUrl: ['', [Validators.required]]
           })
    });
   }
@@ -80,8 +81,8 @@ export class AdminNewProductFormComponent implements OnInit {
   Save(product: Product) {
     if (this.productID && this.productID.length > 0 ) {
         //edit:
-        this.productService.editProduct(product, this.productID);
-        alert('Product updated Succesfully');
+      this.productService.editProduct(product, this.productID);
+      alert('Product updated Succesfully');
     }
     else {
       this.productService.CreateProduct(product);
@@ -91,6 +92,17 @@ export class AdminNewProductFormComponent implements OnInit {
     this.router.navigate(['/admin/products'], {relativeTo: this.activatedRoute});
   }
 
+  Delete() {
+    if (!confirm('Are you sure you want to delete this product?')) return;
+
+    if (this.productID && this.productID.length > 0 ) {
+
+      this.productService.deleteProduct(this.productID);
+      alert('Product deleted Succesfully');
+    }
+
+    this.router.navigate(['/admin/products'], {relativeTo: this.activatedRoute});
+  }
 
   get _title() {
     return this.newProductForm.get('newProductGroup.title');
@@ -106,6 +118,6 @@ export class AdminNewProductFormComponent implements OnInit {
 
 
   get _imageUrl() {
-    return this.newProductForm.controls['newProductGroup'].get('imageURL');
+    return this.newProductForm.controls['newProductGroup'].get('imageUrl');
   }
 }
