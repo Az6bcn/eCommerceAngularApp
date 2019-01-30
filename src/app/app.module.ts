@@ -29,7 +29,6 @@ import { SelectModule } from 'ng-select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DataTableListComponent } from './Tables/data-table/data-table-list.component';
 import { DataTableModule } from 'angular-6-datatable';
-import { AdminEditProductComponent } from './admin-edit-product/admin-edit-product.component';
 
 @NgModule({
   declarations: [
@@ -45,8 +44,7 @@ import { AdminEditProductComponent } from './admin-edit-product/admin-edit-produ
     AdminOrdersListComponent,
     LoginComponent,
     AdminNewProductFormComponent,
-    DataTableListComponent,
-    AdminEditProductComponent
+    DataTableListComponent
   ],
   imports: [
     BrowserModule,
