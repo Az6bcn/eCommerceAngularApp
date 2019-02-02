@@ -67,16 +67,7 @@
         </div>
       </div>
     </div>
-
-    <div class=" col-sm-6">
-      <div class="card" style="width: 20rem; height: 20rem;">
-        <img class="card-img-top" [src]='_imageUrl.value'>
-        <div class="card-body">
-          <h2 class="card-title">{{_title.value}}</h2>
-          <p class="card-text">{{_price.value}}</p>
-        </div>
-      </div>
-    </div>
+    <app-bootstrap-card [data]='parseFormValuesToProduct()' [showButton]='false'></app-bootstrap-card>
   </div>
 </form>
 <!-- https://drive.google.com/thumbnail?id=1xEC5mD-otxwr39ft9CuZPwASUcx4vS_O -->

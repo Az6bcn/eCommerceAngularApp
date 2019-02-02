@@ -29,6 +29,8 @@ import { SelectModule } from 'ng-select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DataTableListComponent } from './Tables/data-table/data-table-list.component';
 import { DataTableModule } from 'angular-6-datatable';
+import { SpinnerComponent } from './spinner/spinner.component';
+import { BootstrapCardComponent } from './bootstrap-card/bootstrap-card.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { DataTableModule } from 'angular-6-datatable';
     AdminOrdersListComponent,
     LoginComponent,
     AdminNewProductFormComponent,
-    DataTableListComponent
+    DataTableListComponent,
+    SpinnerComponent,
+    BootstrapCardComponent
   ],
   imports: [
     BrowserModule,
@@ -92,7 +96,7 @@ import { DataTableModule } from 'angular-6-datatable';
         canActivate: [AuthGuard, AdminGuard]
       },
 
-      { path: '**', component: HomeComponent }
+      { path: '**', component: ShoppingCartComponent }
     ]),
     AngularFireModule.initializeApp(environment.firebase, 'eCommerAppAngular'),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features

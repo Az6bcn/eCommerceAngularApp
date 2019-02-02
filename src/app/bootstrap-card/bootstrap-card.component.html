@@ -1,0 +1,9 @@
+<div class="card" style="width: 22rem; margin-right: 100px; margin-bottom: 50px;">
+  <img [src]='data.imageUrl' class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">{{data.title}}</h5>
+    <data class="card-text">{{data.price}}</data>
+    <br>
+  </div>
+  <button *ngIf='showButton' class="btn btn-primary btn-lg btn-block">Add To Cart</button>
+</div>

@@ -120,4 +120,9 @@ export class AdminNewProductFormComponent implements OnInit {
   get _imageUrl() {
     return this.newProductForm.controls['newProductGroup'].get('imageUrl');
   }
+
+  parseFormValuesToProduct() {
+    return new Product(this._title.value, this._price.value, this._category.value, this._imageUrl.value);
+
+  }
 }
