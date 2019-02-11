@@ -13,6 +13,7 @@ import { switchMap, map } from 'rxjs/operators';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit {
+  totalItemInCart: number;
   constructor(public authService: AuthService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {

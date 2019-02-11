@@ -5,5 +5,18 @@
     <data class="card-text">{{data.price}}</data>
     <br>
   </div>
-  <button *ngIf='showButton' class="btn btn-primary btn-lg btn-block">Add To Cart</button>
+  <button *ngIf='showButton && !showQuantityBtns' class="btn btn-primary btn-lg btn-block" (click)='AddToCart(data)'>Add To Cart</button>
+  <div class="container-fluid" *ngIf='showQuantityBtns'>
+    <div class="row">
+      <span class='col-sm-2'>
+        <button *ngIf='showButton' class="btn btn-primary" (click)='RemoveItem(data)'>-</button>
+      </span>
+      <div class='col-sm-8 text-sm-center'>
+          {{quantity}} in cart
+      </div>
+      <div class='col-sm-2'>
+        <button *ngIf='showButton' class="btn btn-primary"(click)='AddItem(data, null)'>+</button>
+      </div>
+    </div>
+  </div>
 </div>

@@ -64,6 +64,8 @@ export class AuthService {
   }
 
   private saveLoggedInUser(user) {
+    localStorage.setItem('userID', user.id);
+
     const userRef = this.db.object('/Users' + '/' + user.id);
     userRef.update({Name: user.Name, Username: user.Username});
   }

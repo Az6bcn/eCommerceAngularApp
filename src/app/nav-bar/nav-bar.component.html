@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-ligh fixed-top bg-light">
   <a [routerLink]="['/shopping-cart']" routerLinkActive="active"  class="navbar-brand" >Shopping Cart</a>
-
+  <span class="badge badge-warning">{{totalItemInCart}}</span>
   <div class="btn-group" dropdown>
     <div *ngIf='!(authService.user$ | async )'>
             <a class="btn btn-primary " [routerLink]="['/login']" >Log In</a><span class="caret"></span>
