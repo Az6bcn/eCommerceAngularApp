@@ -4,6 +4,7 @@ export class Product {
   category: String;
   imageUrl: string;
   key: string;
+  quantity: number;
 
 
 
@@ -13,6 +14,7 @@ export class Product {
     this.category = category;
     this.imageUrl = imageUrl;
     this.key = key;
+    this.quantity = 1;
   }
 
 }

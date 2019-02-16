@@ -6,6 +6,8 @@ import { UserService } from '../Services/user-service.service';
 import { NullViewportScroller } from '@angular/common/src/viewport_scroller';
 import { auth } from 'firebase';
 import { switchMap, map } from 'rxjs/operators';
+import { ShoppingCartServiceService } from '../Services/shopping-cart-service.service';
+import { Product } from '../Models/Product';
 
 @Component({
   selector: 'app-nav-bar',
@@ -14,9 +16,16 @@ import { switchMap, map } from 'rxjs/operators';
 })
 export class NavBarComponent implements OnInit {
   totalItemInCart: number;
-  constructor(public authService: AuthService, private cdr: ChangeDetectorRef) { }
+  constructor(public authService: AuthService,
+     private cdr: ChangeDetectorRef,
+     private shoppingCartService: ShoppingCartServiceService) { }
 
   ngOnInit() {
+
+    const cartID = localStorage.getItem('cartID');
+    if (cartID){
+      this.GetUsersShoppingCartItemQuantityByItemID(cartID);
+    }
   }
 
   logOut() {
@@ -37,6 +46,16 @@ export class NavBarComponent implements OnInit {
   //   this.isLoggedIn$.next(false);
   //   this.cdr.detectChanges();
   // }
+  GetUsersShoppingCartItemQuantityByItemID(cartID: string) {
+    this.shoppingCartService.GetUsersShoppingCartItems(cartID)
+      .subscribe( (response: Array<any>) => {
+        this.totalItemInCart = response
+        .map(q => q['quantity'])
+        .reduce( (accumulator, currentValue) => {
+          return accumulator + currentValue;
+        }, 0);
+      });
+  }
 
 
 }

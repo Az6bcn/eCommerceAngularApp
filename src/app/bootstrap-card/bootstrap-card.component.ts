@@ -1,7 +1,8 @@
+import { Product } from 'src/app/Models/Product';
 import { ShoppingCartServiceService } from './../Services/shopping-cart-service.service';
-import { Product } from './../Models/Product';
 import { Component, OnInit, Input } from '@angular/core';
 import { database } from 'firebase';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-bootstrap-card',
@@ -20,30 +21,20 @@ export class BootstrapCardComponent implements OnInit {
   constructor(private shoppingCartService: ShoppingCartServiceService) { }
 
   ngOnInit() {
+
   }
 
   RemoveItem(item: Product) {
 
-    if (this.quantity === 1) {
-      this.quantity = 0;
-      this.showQuantityBtns = false;
-      this.showAddToCartBtn = true;
-    }
-
-    this.quantity = this.quantity - 1;
-
-    this.DecrementTotalItem(this.quantity);
-
-    let userID = localStorage.getItem('userID');
-      this.shoppingCartService.RemoveItemToUserShoppingCartNode(item.key, userID);
+    const cartID = localStorage.getItem('cartID');
+    this.shoppingCartService.RemoveItemToUserShoppingCartNode(item.key, cartID);
+    this.GetUsersShoppingCartItemQuantityByItemID(item.key);
   }
 
   AddItem(item: Product, cartID?: string) {
 
-    this.quantity = this.quantity + 1;
-    const xxx = this.IncrementTotalItem(this.quantity);
     const cartIDs = (cartID === null) ?  localStorage.getItem('cartID') : cartID;
-    console.log('cartIDs', cartIDs);
+
     this.shoppingCartService.AddItemToUserShoppingCartNode(item, cartIDs);
   }
 
@@ -60,20 +51,25 @@ export class BootstrapCardComponent implements OnInit {
 
           // Add first item to the cartID
           this.AddItem(item, res.key);
+          this.GetUsersShoppingCartItemQuantityByItemID(item.key);
         });
+        return;
     }
 
     // Add first item to the cartID
     this.AddItem(item, cartID);
+    this.GetUsersShoppingCartItemQuantityByItemID(item.key);
   }
 
-  IncrementTotalItem(quantity: number) {
-    this.totalItemInCart = this.totalItemInCart + quantity;
-    localStorage.setItem('TotalItem', this.totalItemInCart.toString());
+  GetUsersShoppingCartItemQuantityByItemID(itemID: string) {
+    const cartID = localStorage.getItem('cartID');
+    this.shoppingCartService.GetUsersShoppingCartItems(cartID)
+      .subscribe( (response: Array<any>) => {
+        const responseObject: Array<Product> = response.find( p => p['Product']['key'] === itemID);
+        if (responseObject) {
+          this.quantity = responseObject['quantity'];
+        }
+      });
   }
 
-  DecrementTotalItem(quantity: number) {
-    this.totalItemInCart = this.totalItemInCart - quantity;
-    localStorage.setItem('TotalItem', this.totalItemInCart.toString());
-  }
 }
