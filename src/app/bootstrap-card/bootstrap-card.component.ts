@@ -10,7 +10,7 @@ import {map} from 'rxjs/operators';
   styleUrls: ['./bootstrap-card.component.css']
 })
 export class BootstrapCardComponent implements OnInit {
-  totalItemInCart = 0;
+  productQuantity: Array<{}>;
   quantity: number;
   showAddToCartBtn = false;
   showQuantityBtns = false;
@@ -21,7 +21,10 @@ export class BootstrapCardComponent implements OnInit {
   constructor(private shoppingCartService: ShoppingCartServiceService) { }
 
   ngOnInit() {
-
+    const cartID = localStorage.getItem('cartID');
+    if (cartID) {
+      this.GetUsersShoppingCartAddedItems(cartID);
+    }
   }
 
   RemoveItem(item: Product) {
@@ -40,7 +43,6 @@ export class BootstrapCardComponent implements OnInit {
 
   AddToCart(item: Product) {
     this.showQuantityBtns = true;
-    this.quantity = 1;
 
     const cartID = localStorage.getItem('cartID');
 
@@ -71,5 +73,24 @@ export class BootstrapCardComponent implements OnInit {
         }
       });
   }
+  GetUsersShoppingCartAddedItems(cartID: string) {
+    this.shoppingCartService.GetUsersShoppingCartItems(cartID)
+      .subscribe( (response: Array<any>) => {
+        this.productQuantity = response
+        .map(p => ({productID: p['Product']['key'], quantityAdded: p['quantity']}));
+        console.log('ppppppppp', this.productQuantity);
+      });
+  }
+
+  IsIncluded(data: Product) {
+    const itemFound = this.productQuantity.find(p => p['productID'] === data.key);
+    if (itemFound) {
+      //data.quantity = itemFound['quantityAdded'];
+      this.quantity = itemFound['quantityAdded'];
+      return true;
+    }
+    return false;
+  }
+
 
 }

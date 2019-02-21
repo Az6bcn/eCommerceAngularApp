@@ -1,0 +1,73 @@
+<h1>Shopping Cart</h1>
+<div class='container-fluid' *ngIf='data.length == 0 '>
+  Your cart is empty.
+</div>
+
+<div class='container-fluid' *ngIf='data && data.length > 0'>
+  You have {{totalItemInCart}} items in your shopping cart.
+  <table class="table table-striped" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="5">
+    <thead>
+      <tr>
+        <th style="width: 15%">
+          <mfDefaultSorter by="name"></mfDefaultSorter>
+        </th>
+        <th style="width: 20%">
+          <mfDefaultSorter by="email">Product</mfDefaultSorter>
+        </th>
+        <th style="width: 30%" class='text-center'>
+          <mfDefaultSorter by="age">Quantity</mfDefaultSorter>
+        </th>
+        <th style="width: 20%" class='text-right'>
+          <mfDefaultSorter by="city">Price</mfDefaultSorter>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of mf.data">
+        <td> <img [src]='item.Product.imageUrl' class="card-img-top rounded-circle" alt="..."></td>
+        <td>{{item.Product.title}}</td>
+        <td class="text-right">
+          <div class="container-fluid">
+            <div class="row">
+              <span class='col-sm-2'>
+                <button class="btn btn-primary" (click)='RemoveItem(item.Product)'>-</button>
+              </span>
+              <div class='col-sm-8 text-sm-center'>
+                {{item.quantity}} in cart
+              </div>
+              <div class='col-sm-2'>
+                <button class="btn btn-primary" (click)='AddItem(item.Product, null)'>+</button>
+              </div>
+            </div>
+          </div>
+        </td>
+        <td class='text-right'>{{item.Product.price | currency: 'GBP'}}</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td class='text-center float-sm-right'>
+          <h3> {{totalPrice | currency: 'GBP'}} </h3>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="4">
+          <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+
+
+  <div class='row'>
+    <div class="col-sm-6">
+      <button type="button" class="btn btn-danger" (click)='ClearShoppingCart()'>Clear Shopping Cart</button>
+    </div>
+    <div class="col-sm-6">
+      <button type="button" class="btn btn-primary float-sm-right" (click)='Order()'>Order</button>
+    </div>
+  </div>
+</div>

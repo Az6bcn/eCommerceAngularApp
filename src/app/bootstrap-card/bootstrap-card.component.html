@@ -2,17 +2,17 @@
   <img [src]='data.imageUrl' class="card-img-top" alt="...">
   <div class="card-body">
     <h5 class="card-title">{{data.title}}</h5>
-    <data class="card-text">{{data.price}}</data>
+    <data class="card-text">{{data.price | currency: 'GBP'}}</data>
     <br>
   </div>
-  <button *ngIf='showButton && !showQuantityBtns' class="btn btn-primary btn-lg btn-block" (click)='AddToCart(data)'>Add To Cart</button>
-  <div class="container-fluid" *ngIf='showQuantityBtns'>
+  <button *ngIf='showButton && !showQuantityBtns && !(productQuantity && IsIncluded(data))' class="btn btn-primary btn-lg btn-block" (click)='AddToCart(data)'>Add To Cart</button>
+  <div class="container-fluid" *ngIf='showQuantityBtns || (productQuantity && IsIncluded(data))'>
     <div class="row">
       <span class='col-sm-2'>
         <button *ngIf='showButton' class="btn btn-primary" (click)='RemoveItem(data)'>-</button>
       </span>
       <div class='col-sm-8 text-sm-center'>
-          {{quantity}} in cart
+          {{quantity }} in cart
       </div>
       <div class='col-sm-2'>
         <button *ngIf='showButton' class="btn btn-primary"(click)='AddItem(data, null)'>+</button>

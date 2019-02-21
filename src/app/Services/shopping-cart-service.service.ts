@@ -58,6 +58,7 @@ export class ShoppingCartServiceService {
     cartNodeRef.valueChanges()
     .pipe(take(1))
     .subscribe(x => {
+      console.log('xxx', x);
       if ( x['quantity'] === 1) {
         cartNodeRef.remove();
         return;
@@ -79,6 +80,11 @@ export class ShoppingCartServiceService {
    */
   GetUsersShoppingCartItems(cartID) {
     return this.db.list(`/ShoppingCart/${cartID}/Items`).valueChanges();
+  }
+
+  ClearShoppingCart(cartID: string) {
+    const itemRef = this.db.list(`/ShoppingCart/${cartID}/Items`);
+    itemRef.remove();
   }
 
 }
